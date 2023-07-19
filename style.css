@@ -14,7 +14,7 @@ html {
 body {
   align-items: center;
   justify-content: center;
-  background: linear-gradient(320deg, rgb(0, 106, 255), rgb(251, 181, 5));
+  background: linear-gradient(320deg, rgb(0, 106, 255), rgb(255, 183, 0));
   display: flex; 
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-display: swap;
@@ -26,4 +26,28 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+
+.display {
+  background-color:rgba(222, 222, 222, 0.5);
+  width: 100%;
+  text-align: end;
+  font-size: 60px;
+  margin: 5px
+}
+
+
+button {
+  height: 75px;
+  width: 75px;
+  font-size: 25px;
+  border-radius: 10px;
+}
+
+.clear {
+  width: 235px;
+}
+
+.zero {
+  width: 235px;
 }
