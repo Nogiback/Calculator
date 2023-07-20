@@ -2,6 +2,9 @@ let num1 = null;
 let num2 = null;
 let operator = null;
 
+const display = document.querySelector('.display');
+
+
 function add (num1, num2) {
   return num1 + num2;
 }
@@ -37,4 +40,4 @@ function operate(operator, num1, num2) {
 }
 
 //testing if functions working as intended
-operate('+', 4, 2);
+//operate('+', 4, 2);
