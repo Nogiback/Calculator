@@ -7,7 +7,8 @@ const numberButtons = document.querySelectorAll('.num-button');
 const operatorButtons = document.querySelectorAll('.op-button');
 const equalsButton = document.getElementById('equals');
 const clearButton = document.getElementById('clear');
-const display = document.getElementById('current-screen');
+const currentDisplay = document.getElementById('current-screen');
+const historyDisplay = document.getElementById('history-screen');
 
 equalsButton.addEventListener('click', checkOperation);
 clearButton.addEventListener('click', clearAll);
@@ -21,19 +22,20 @@ operatorButtons.forEach((button) =>
 );
 
 function appendNumber(num) {
-  if (display.textContent === '0' || resetFlag) {
+  if (currentDisplay.textContent === '0' || resetFlag) {
     resetDisplay();
   };
-  display.textContent += num;
+  currentDisplay.textContent += num;
 }
 
 function resetDisplay() {
-  display.textContent = '';
+  currentDisplay.textContent = '';
   resetFlag = false;
 }
 
 function clearAll() {
-  display.textContent = '0';
+  currentDisplay.textContent = '0';
+  historyDisplay.textContent = '';
   num1 = '';
   num2 = '';
   currentOperator = null;
@@ -43,8 +45,9 @@ function getOperation(operator) {
   if (currentOperator !== null) {
     checkOperation();
   }
-  num1 = display.textContent;
+  num1 = currentDisplay.textContent;
   currentOperator = operator;
+  historyDisplay.textContent = `${num1} ${currentOperator}`;
   resetFlag = true;
 }
 
@@ -53,13 +56,14 @@ function checkOperation() {
     return;
   }
 
-  if (currentOperator === '÷' && display.textContent === '0') {
+  if (currentOperator === '÷' && currentDisplay.textContent === '0') {
     display.textContent = 'DIV 0 ERROR';
     return;
   }
 
-  num2 = display.textContent;
-  display.textContent = roundNumber(operate(currentOperator, num1, num2));
+  num2 = currentDisplay.textContent;
+  currentDisplay.textContent = roundNumber(operate(currentOperator, num1, num2));
+  historyDisplay.textContent = `${num1} ${currentOperator} ${num2} =`;
   currentOperator = null;
 }
 
