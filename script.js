@@ -3,13 +3,13 @@ let num2 = '';
 let currentOperator = null;
 let resetFlag = false;
 
-const display = document.querySelector('.display');
 const numberButtons = document.querySelectorAll('.num-button');
 const operatorButtons = document.querySelectorAll('.op-button');
 const equalsButton = document.getElementById('equals');
 const clearButton = document.getElementById('clear');
+const display = document.getElementById('current-screen');
 
-//equalsButton.addEventListener('click', checkOperation);
+equalsButton.addEventListener('click', checkOperation);
 clearButton.addEventListener('click', clearAll);
 
 numberButtons.forEach((button) =>
@@ -23,9 +23,8 @@ operatorButtons.forEach((button) =>
 function appendNumber(num) {
   if (display.textContent === '0' || resetFlag) {
     resetDisplay();
-  }
+  };
   display.textContent += num;
-  console.log(num);
 }
 
 function resetDisplay() {
@@ -40,23 +39,52 @@ function clearAll() {
   currentOperator = null;
 }
 
-function add (num1, num2) {
-  return num1 + num2;
+function getOperation(operator) {
+  if (currentOperator !== null) {
+    checkOperation();
+  }
+  num1 = display.textContent;
+  currentOperator = operator;
+  resetFlag = true;
 }
 
-function subtract (num1, num2) {
-  return num1 - num2;
+function checkOperation() {
+  if (currentOperator === null || resetFlag) {
+    return;
+  }
+
+  if (currentOperator === '÷' && display.textContent === '0') {
+    display.textContent = 'DIV 0 ERROR';
+    return;
+  }
+
+  num2 = display.textContent;
+  display.textContent = roundNumber(operate(currentOperator, num1, num2));
+  currentOperator = null;
 }
 
-function multiply (num1, num2) {
-  return num1 * num2;
+function roundNumber(number) {
+  return Math.round(number * 1000) / 1000;
 }
 
-function divide (num1, num2) {
-  return num1 / num2;
+function add (a, b) {
+  return a + b;
+}
+
+function subtract (a, b) {
+  return a - b;
+}
+
+function multiply (a, b) {
+  return a * b;
+}
+
+function divide (a, b) {
+  return a / b;
 }
 
 function operate(operator, a, b) {
+
   a = Number(a);
   b = Number(b);
 
@@ -69,7 +97,7 @@ function operate(operator, a, b) {
       return multiply(a,b);
     case '÷':
       if (b===0) {
-        return null
+        return null;
       } else {
         return divide(a,b);
       }
@@ -77,6 +105,3 @@ function operate(operator, a, b) {
       return null;  
   }
 }
-
-//testing if functions working as intended
-//operate('+', 4, 2);
