@@ -22,7 +22,7 @@ operatorButtons.forEach((button) =>
 );
 
 function appendNumber(num) {
-  if (currentDisplay.textContent === '0' || resetFlag) {
+  if (currentDisplay.textContent === '0' || resetFlag ) {
     resetDisplay();
   };
   currentDisplay.textContent += num;
@@ -57,7 +57,7 @@ function checkOperation() {
   }
 
   if (currentOperator === '÷' && currentDisplay.textContent === '0') {
-    display.textContent = 'DIV 0 ERROR';
+    currentDisplay.textContent = 'ERROR';
     return;
   }
 
