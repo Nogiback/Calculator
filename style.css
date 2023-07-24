@@ -85,11 +85,8 @@ button:active {
   background-color: rgb(255, 175, 37);
 }
 
-#clear { 
-  width: 241.5px;
-}
-
-#zero {
+#zero, 
+#clear {
   width: 158px;
 }
 

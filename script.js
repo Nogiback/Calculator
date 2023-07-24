@@ -10,6 +10,7 @@ const operatorButtons = document.querySelectorAll('.op-button');
 const equalsButton = document.getElementById('equals');
 const clearButton = document.getElementById('clear');
 const decimalButton = document.getElementById('decimal');
+const backspaceButton = document.getElementById('backspace');
 const currentDisplay = document.getElementById('current-screen');
 const historyDisplay = document.getElementById('history-screen');
 
@@ -17,6 +18,7 @@ const historyDisplay = document.getElementById('history-screen');
 equalsButton.addEventListener('click', checkOperation);
 clearButton.addEventListener('click', clearAll);
 decimalButton.addEventListener('click', appendDecimal);
+backspaceButton.addEventListener('click', backspaceNumber);
 
 numberButtons.forEach((button) =>
   button.addEventListener('click', () => appendNumber(button.textContent))
@@ -36,11 +38,20 @@ function appendNumber(num) {
 
 //Function to append decimal if decimal is not already included in currentDisplay
 function appendDecimal() {
+  if (currentDisplay.textContent === '' || resetFlag) {
+    resetDisplay();
+  }
+
   if (currentDisplay.textContent.includes('.')){
     return;
   } else {
     currentDisplay.textContent += `.`;
   }
+}
+
+//Function to delete the end of currentDisplay number string
+function backspaceNumber() {
+  currentDisplay.textContent = currentDisplay.textContent.slice(0,-1);
 }
 
 function resetDisplay() {
@@ -51,12 +62,16 @@ function resetDisplay() {
 //Clears screen and all variables for new calculation
 function clearAll() {
 
+  //Reset currentDisplay font size
+  currentDisplay.style.fontSize = '60px';
+
   //Re-enabling buttons after DIV 0 ERROR
-  if (currentDisplay.textContent === 'ERROR') {
+  if (currentDisplay.textContent === 'DIV 0 ERROR') {
     numberButtons.forEach((button) => button.disabled = false);
-      operatorButtons.forEach((button) => button.disabled = false);
+    operatorButtons.forEach((button) => button.disabled = false);
     decimalButton.disabled = false;
     equalsButton.disabled = false;
+    backspaceButton.disabled = false;
   }
   
   currentDisplay.textContent = '0';
@@ -85,18 +100,28 @@ function checkOperation() {
 
   //Shows DIV 0 error and disables all buttons except reset button
   if (currentOperator === '÷' && currentDisplay.textContent === '0') {
-    currentDisplay.textContent = 'ERROR';
+    currentDisplay.style.fontSize = '50px';
+    currentDisplay.textContent = 'DIV 0 ERROR';
     
     numberButtons.forEach((button) => button.disabled = true);
     operatorButtons.forEach((button) => button.disabled = true);
     decimalButton.disabled = true;
     equalsButton.disabled = true;
+    backspaceButton.disabled = true;
 
     return;
   }
 
+  //Call roundNumber function on return value of operate(), convert toLocaleString() to add commas
   num2 = currentDisplay.textContent;
-  currentDisplay.textContent = roundNumber(operate(currentOperator, num1, num2));
+  let result = roundNumber(operate(currentOperator, num1, num2)).toLocaleString();
+
+  //Check to see if result is large number to reduce currentDisplay font size
+  if (result.length > 8) {
+    currentDisplay.style.fontSize = '40px';
+  }
+
+  currentDisplay.textContent = result;
   historyDisplay.textContent = `${num1} ${currentOperator} ${num2} =`;
   currentOperator = null;
 }
@@ -124,9 +149,10 @@ function divide (a, b) {
 
 //Function sends operator and numbers to correct corresponding function for result
 function operate(operator, a, b) {
-
-  a = parseFloat(a);
-  b = parseFloat(b);
+ 
+  //Remove commas from string and convert to number
+  a = Number(a.replace(/,/g, ''));
+  b = Number(b.replace(/,/g, ''));
 
   switch (operator) {
     case '+':
