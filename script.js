@@ -36,7 +36,7 @@ function getKeyboardInput(e) {
   }
   
   if (e.key === '+' || e.key === '-' || e.key === '/' || e.key === '*') {
-    getOperation(covertKeyboardOperator(e.key));
+    getOperation(convertKeyboardOperator(e.key));
   }
 
   if (e.key === '.') {
