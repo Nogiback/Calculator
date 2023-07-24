@@ -19,6 +19,7 @@ equalsButton.addEventListener('click', checkOperation);
 clearButton.addEventListener('click', clearAll);
 decimalButton.addEventListener('click', appendDecimal);
 backspaceButton.addEventListener('click', backspaceNumber);
+window.addEventListener('keydown', getKeyboardInput);
 
 numberButtons.forEach((button) =>
   button.addEventListener('click', () => appendNumber(button.textContent))
@@ -27,6 +28,46 @@ numberButtons.forEach((button) =>
 operatorButtons.forEach((button) =>
   button.addEventListener('click', () => getOperation(button.textContent))
 );
+
+//Function for handling keyboard input
+function getKeyboardInput(e) {
+  if (e.key >= 0 && e.key <= 9) {
+    appendNumber(e.key);
+  }
+  
+  if (e.key === '+' || e.key === '-' || e.key === '/' || e.key === '*') {
+    getOperation(covertKeyboardOperator(e.key));
+  }
+
+  if (e.key === '.') {
+    appendDecimal();
+  }
+
+  if (e.key === '=' || e.key === 'Enter') {
+    checkOperation();
+  }  
+
+  if (e.key === 'Backspace') {
+    backspaceNumber()
+  }
+
+  if (e.key === 'Escape') {
+    clearAll();
+  }
+}
+
+//Function to convert the keyboard input to the calculator input
+function convertKeyboardOperator(key) {
+  if (key === '/') {
+    return '÷';
+  } else if (key === '*') {
+    return '×';
+  } else if (key === '+') {
+    return '+';
+  } else if (key === '-') {
+    return '-';
+  }
+}
 
 //Function to append number to current display if display is showing 0 or resetFlag is true
 function appendNumber(num) {
