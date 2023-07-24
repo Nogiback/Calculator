@@ -140,7 +140,7 @@ function checkOperation() {
   }
 
   //Shows DIV 0 error and disables all buttons except reset button
-  if (currentOperator === '÷' && currentDisplay.textContent === '0') {
+  if (currentOperator === '÷' && currentDisplay.textContent.charAt(0) === '0'){
     currentDisplay.style.fontSize = '50px';
     currentDisplay.textContent = 'DIV 0 ERROR';
     
