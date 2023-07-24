@@ -85,9 +85,12 @@ button:active {
   background-color: rgb(255, 175, 37);
 }
 
-#clear,
+#clear { 
+  width: 241.5px;
+}
+
 #zero {
-  width: 241.3px;
+  width: 158px;
 }
 
 .footer {
