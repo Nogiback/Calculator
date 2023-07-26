@@ -31,28 +31,30 @@ operatorButtons.forEach((button) =>
 
 //Function for handling keyboard input
 function getKeyboardInput(e) {
-  if (e.key >= 0 && e.key <= 9) {
-    appendNumber(e.key);
-  }
   
-  if (e.key === '+' || e.key === '-' || e.key === '/' || e.key === '*') {
-    getOperation(convertKeyboardOperator(e.key));
-  }
-
-  if (e.key === '.') {
-    appendDecimal();
-  }
-
-  if (e.key === '=' || e.key === 'Enter') {
-    checkOperation();
-  }  
-
-  if (e.key === 'Backspace') {
-    backspaceNumber()
-  }
-
   if (e.key === 'Escape') {
     clearAll();
+  }
+
+  //Check for DIV 0 error and disable keyboard input except for Escape if true
+  if (currentDisplay.textContent === 'DIV 0 ERROR') {
+    return;
+  } else {
+    if (e.key >= 0 && e.key <= 9) {
+      appendNumber(e.key);
+    }
+    if (e.key === '+' || e.key === '-' || e.key === '/' || e.key === '*') {
+      getOperation(convertKeyboardOperator(e.key));
+    }
+    if (e.key === '.') {
+      appendDecimal();
+    }
+    if (e.key === '=' || e.key === 'Enter') {
+      checkOperation();
+    }  
+    if (e.key === 'Backspace') {
+      backspaceNumber()
+    }
   }
 }
 
