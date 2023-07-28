@@ -110,7 +110,7 @@ function resetDisplay() {
 function clearAll() {
 
   //Reset currentDisplay font size
-  currentDisplay.style.fontSize = '60px';
+  currentDisplay.style.fontSize = '70px';
 
   //Re-enabling buttons after DIV 0 ERROR
   if (currentDisplay.textContent === 'DIV 0 ERROR') {
@@ -151,7 +151,7 @@ function checkOperation() {
 
   //Shows DIV 0 error and disables all buttons except reset button
   if (currentOperator === '÷' && Number(currentDisplay.textContent) == 0){
-    currentDisplay.style.fontSize = '50px';
+    currentDisplay.style.fontSize = '65px';
     currentDisplay.textContent = 'DIV 0 ERROR';
     
     numberButtons.forEach((button) => button.disabled = true);
@@ -168,8 +168,8 @@ function checkOperation() {
   let result = roundNumber(operate(currentOperator, num1, num2)).toLocaleString();
 
   //Check to see if result is large number to reduce currentDisplay font size
-  if (result.length > 8) {
-    currentDisplay.style.fontSize = '40px';
+  if (result.length > 9) {
+    currentDisplay.style.fontSize = '50px';
   }
 
   currentDisplay.textContent = result;

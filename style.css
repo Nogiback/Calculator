@@ -3,6 +3,11 @@ html {
   height: 100%;
 }
 
+@font-face {
+  font-family: 'Digital';
+  src: url("../fonts/digital-7.ttf");
+}
+
 *,
 *::before,
 *::after {
@@ -40,22 +45,23 @@ body {
   background-color:rgb(201, 201, 201);
   border-radius: 10px;
   width: 325px;
-  min-height: 120px;
+  min-height: 130px;
   word-wrap: break-word;
   word-break: break-all;
   text-align: right;
   margin: 10px;
   padding: 5px 10px;
+  font-family: Digital;
 }
 
 #history-screen {
-  font-size: 25px;
+  font-size: 35px;
   margin: 0;
-  min-height: 50px;
+  min-height: 60px;
 }
 
 #current-screen {
-  font-size: 60px;
+  font-size: 70px;
   line-height: 1.0em;
 }
 
