@@ -85,8 +85,8 @@ button:active {
   background-color: rgb(255, 175, 37);
 }
 
-#zero {
-  width: 158px;
+#exp {
+  background-color: rgb(63, 63, 63);
 }
 
 .footer {

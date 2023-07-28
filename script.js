@@ -43,7 +43,7 @@ function getKeyboardInput(e) {
     if (e.key >= 0 && e.key <= 9) {
       appendNumber(e.key);
     }
-    if (e.key === '+' || e.key === '-' || e.key === '/' || e.key === '*' || e.key ==='^') {
+    if (e.key === '+' || e.key === '-' || e.key === '/' || e.key === '*' || e.key ==='^' || e.key === 'e') {
       getOperation(convertKeyboardOperator(e.key));
     }
     if (e.key === '.') {
@@ -68,8 +68,11 @@ function convertKeyboardOperator(key) {
     return '+';
   } else if (key === '-') {
     return '-';
-  } else if (key === '^')
+  } else if (key === '^') {
     return 'Xy';
+  } else if (key === 'e') {
+    return 'EXP';
+  }
 }
 
 //Function to append number to current display if display is showing 0 or resetFlag is true
@@ -199,6 +202,10 @@ function exponential(a,b) {
   return a**b;
 }
 
+function powerTen(a,b) {
+  return a * (10**b);
+}
+
 //Function sends operator and numbers to correct corresponding function for result
 function operate(operator, a, b) {
  
@@ -221,6 +228,8 @@ function operate(operator, a, b) {
       }
     case '^':
       return exponential(a,b);
+    case 'EXP':
+      return powerTen(a,b);
     default:
       return null;  
   }
